@@ -9,4 +9,9 @@ export class EventDetailPage implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  dismiss(){
+      this.dismiss();
+    }
+
 }
