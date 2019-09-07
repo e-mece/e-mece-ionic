@@ -13,9 +13,11 @@ const routes: Routes = [
           import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'tab2',
+        path: 'nearby-events',
         loadChildren: () =>
-          import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+          import('../nearby-events/nearby-events.module').then(
+            m => m.NearbyEventsPageModule
+          )
       },
       {
         path: 'create-event',
