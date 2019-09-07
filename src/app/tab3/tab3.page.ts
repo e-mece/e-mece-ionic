@@ -6,6 +6,7 @@ import {
   FileUploadOptions,
   FileTransferObject
 } from "@ionic-native/file-transfer/ngx";
+import { PhotoService } from "../services/photo.service";
 
 @Component({
   selector: "app-tab3",
@@ -13,54 +14,75 @@ import {
   styleUrls: ["tab3.page.scss"]
 })
 export class Tab3Page {
-  fileUrl: any = null;
-  respData: any;
+  imageResponse: any;
+  options: any;
 
-  constructor(  private imagePicker: ImagePicker,
-    private crop: Crop,
-    private transfer: FileTransfer) 
-  {}
+  constructor(private imagePicker: ImagePicker) {}
 
-  // For image upload
-  cropUpload() {
-    this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 0 }).then(
+  getImages() {
+    this.options = {
+      // Android only. Max images to be selected, defaults to 15. If this is set to 1, upon
+      // selection of a single image, the plugin will return it.
+      maximumImagesCount: 1,
+
+      // max width and height to allow the images to be.  Will keep aspect
+      // ratio no matter what.  So if both are 800, the returned image
+      // will be at most 800 pixels wide and 800 pixels tall.  If the width is
+      // 800 and height 0 the image will be 800 pixels wide if the source
+      // is at least that wide.
+      //width: 200,
+      //height: 200,
+
+      // quality of resized image, defaults to 100
+      //quality: 100,
+
+      // output type, defaults to FILE_URIs.
+      // available options are
+      // window.imagePicker.OutputType.FILE_URI (0) or
+      // window.imagePicker.OutputType.BASE64_STRING (1)
+      outputType: 1
+    };
+    this.imageResponse = [];
+    this.imagePicker.getPictures(this.options).then(
       results => {
-        for (let i = 0; i < results.length; i++) {
-          console.log("Image URI: " + results[i]);
-          this.crop.crop(results[i], { quality: 100 }).then(
-            newImage => {
-              console.log("new image path is: " + newImage);
-              const fileTransfer: FileTransferObject = this.transfer.create();
-              const uploadOpts: FileUploadOptions = {
-                fileKey: "file",
-                fileName: newImage.substr(newImage.lastIndexOf("/") + 1)
-              };
-
-              fileTransfer
-                .upload(
-                  newImage,
-                  "http://192.168.0.7:3000/api/upload",
-                  uploadOpts
-                )
-                .then(
-                  data => {
-                    console.log(data);
-                    this.respData = JSON.parse(data.response);
-                    console.log(this.respData);
-                    this.fileUrl = this.respData.fileUrl;
-                  },
-                  err => {
-                    console.log(err);
-                  }
-                );
-            },
-            error => console.error("Error cropping image", error)
-          );
+        console.log(results);
+        for (var i = 0; i < results.length; i++) {
+          this.imageResponse.push("data:image/jpeg;base64," + results[i]);
         }
       },
       err => {
-        console.log(err);
+        alert(err);
       }
     );
   }
+
+  // // For image upload
+  // cropUpload() {
+  //   this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 0 }).then(
+  //     results => {
+  //       for (let i = 0; i < results.length; i++) {
+  //         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+  //           console.log('file system open: ' + fs.name);
+  //           fs.root.getFile(results[i], { create: true, exclusive: false }, function (fileEntry) {
+  //               fileEntry.file((file) => {
+  //                   var reader = new FileReader();
+  //                   reader.onloadend = () => {
+  //                       // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+  //                       var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+  //                       var oReq = new XMLHttpRequest();
+  //                       oReq.open("POST", "http://mysweeturl.com/upload_handler", true);
+  //                       oReq.onload = (oEvent) => {
+  //                           // all done!
+  //                       };
+  //                       // Pass the blob in to XHR's send method
+  //                       oReq.send(blob);
+  //                   };
+  //                   // Read the file as an ArrayBuffer
+  //                   reader.readAsArrayBuffer(file);
+  //               }, (err) => { console.error('error getting fileentry file!' + err); });
+  //           }, (err) => { console.error('error getting file! ' + err); });
+  //       },  (err) => { console.error('error getting persistent fs! ' + err); });
+  //           },
+  //           error => console.error("Error cropping image", error)
+  //         );
 }
