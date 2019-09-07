@@ -1,5 +1,8 @@
 {
   "name": "e-mece-ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
+

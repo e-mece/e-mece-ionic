@@ -13,18 +13,37 @@
     cancelButtonText="İptal Et"
     placeholder="Etkinlik Ara"
   ></ion-searchbar>
-  <app-slide></app-slide>
 
-  <ion-list>
-    <ion-item *ngFor="let item of dataList">
-      <ion-label>{{ item }}</ion-label>
-    </ion-item>
-  </ion-list>
+  <div class="slides">
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let element of dataArray">
+        <img class="crop" src="{{ element.address }}" />
+        <div class="bottom-left">{{ element.label }}</div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="infinite-list">
+    <ion-list>
+      <ion-item *ngFor="let item of dataList">
+        <ion-thumbnail slot="start">
+          <img
+            src="{{item.image}}"
+          />
+        </ion-thumbnail>
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.address }}</p>
+          <p>{{ item.time }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
-      loadingText="Loading more data..."
+      loadingText="Daha fazla etkinlik yükleniyor..."
     >
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

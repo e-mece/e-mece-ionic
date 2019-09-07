@@ -1,9 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>tab5</ion-title>
+    <ion-title>Liderler</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen>
+  <ion-item *ngFor="let item of dataList">
+    <ion-thumbnail slot="start">
+      <img src="{{ item.image }}" />
+    </ion-thumbnail>
+    <ion-icon slot="end" name="ribbon" color="{{ item.color }}"></ion-icon>
+    <ion-label>{{ item.name }} {{ item.surname }}</ion-label>
+  </ion-item>
 </ion-content>

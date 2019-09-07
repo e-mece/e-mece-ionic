@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SlideComponent } from './slide.component';
+import { QrcodeComponent } from './qrcode.component';
 
-describe('SlideComponent', () => {
-  let component: SlideComponent;
-  let fixture: ComponentFixture<SlideComponent>;
+describe('QrcodeComponent', () => {
+  let component: QrcodeComponent;
+  let fixture: ComponentFixture<QrcodeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlideComponent ],
+      declarations: [ QrcodeComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SlideComponent);
+    fixture = TestBed.createComponent(QrcodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
