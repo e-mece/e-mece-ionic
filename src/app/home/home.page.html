@@ -25,7 +25,7 @@
 
   <div class="infinite-list">
     <ion-list>
-      <ion-item *ngFor="let item of dataList">
+      <ion-item *ngFor="let item of dataList" (click)="presentModal()">
         <ion-thumbnail slot="start">
           <img src="{{ item.image }}" />
         </ion-thumbnail>
