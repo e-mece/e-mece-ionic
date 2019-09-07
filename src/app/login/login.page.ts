@@ -7,6 +7,7 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import { LoginRequest } from 'src/contract';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +40,15 @@ export class LoginPage implements OnInit {
     if (this.credentials.invalid) {
       return;
     }
-    console.log(this.credentials.value);
+
+    const loginRequest = new LoginRequest();
+    loginRequest.identifier = this.credentials.value.identifier;
+    loginRequest.password = this.credentials.value.password;
+
+    const success = await this.authService.attemptAuth(loginRequest);
+
+    if (success) {
+      this.router.navigate(['/tabs']);
+    }
   }
 }
