@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProfilePage } from './profile.page';
+import { QrreaderPageModule } from '../qrreader/qrreader.module';
+import { QrreaderPage } from '../qrreader/qrreader.page';
 
 const routes: Routes = [
   {
@@ -19,8 +21,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    QrreaderPageModule
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage],
+  entryComponents: [QrreaderPage]
 })
 export class ProfilePageModule {}

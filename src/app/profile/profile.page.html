@@ -12,7 +12,6 @@
   </ion-avatar>
 
   <ion-list>
-
     <ion-header translucent>
       <ion-toolbar>
         <div class="ion-text-uppercase ion-text-center">
@@ -36,12 +35,12 @@
       </ion-label>
       <ion-note slot="end" color="primary" style="font-size:100%">99</ion-note>
     </ion-item>
-
   </ion-list>
 
-
   <ion-content class="ion-padding">
-    <ion-button expand="block">QR'ını Gör</ion-button>
+    <ion-button expand="block" (click)="presentModal(item)"
+      >QR'ını Gör</ion-button
+    >
   </ion-content>
 
   <ion-content> </ion-content>

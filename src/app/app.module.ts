@@ -15,6 +15,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { init } from './init';
 import { IonicStorageModule } from '@ionic/storage';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ImagePicker,
     ImageResizer,
     AuthService,
+    QRScanner,n
     {
       provide: APP_INITIALIZER,
       useFactory: init,
