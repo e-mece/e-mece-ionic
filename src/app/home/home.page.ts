@@ -13,7 +13,7 @@ export class HomePage implements OnInit {
 
   dataList: any;
   dataArray: any;
-  constructor(public modalController: ModalController) {}
+  constructor(private readonly modalController: ModalController) {}
 
   slideOpts = {
     initialSlide: 0,
@@ -116,9 +116,10 @@ export class HomePage implements OnInit {
     ];
   }
 
-  async presentModal() {
+  async presentModal(item: any) {
     const modal = await this.modalController.create({
-      component: EventDetailPage
+      component: EventDetailPage,
+      componentProps: { event: item }
     });
     return await modal.present();
   }

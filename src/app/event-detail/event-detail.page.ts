@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-event-detail',
@@ -6,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-detail.page.scss']
 })
 export class EventDetailPage implements OnInit {
-  constructor() {}
+  constructor(
+    private readonly modalController: ModalController,
+    private readonly navParams: NavParams
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.navParams.get('event'));
+  }
 
-  dismiss(){
-      this.dismiss();
-    }
-
+  dismiss() {
+    this.modalController.dismiss();
+  }
 }
