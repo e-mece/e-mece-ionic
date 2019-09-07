@@ -8,7 +8,12 @@ import { IonicModule } from '@ionic/angular';
 import { QrreaderPage } from './qrreader.page';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild([{ path: '', component: QrreaderPage }])
+  ],
   declarations: [QrreaderPage],
   exports: [QrreaderPage]
 })

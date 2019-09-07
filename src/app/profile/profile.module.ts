@@ -25,6 +25,6 @@ const routes: Routes = [
     QrreaderPageModule
   ],
   declarations: [ProfilePage],
-  entryComponents: [QrreaderPage]
+  entryComponents: []
 })
 export class ProfilePageModule {}

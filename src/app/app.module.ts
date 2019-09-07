@@ -34,7 +34,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
     ImagePicker,
     ImageResizer,
     AuthService,
-    QRScanner,n
+    QRScanner,
     {
       provide: APP_INITIALIZER,
       useFactory: init,

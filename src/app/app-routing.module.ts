@@ -10,7 +10,11 @@ const routes: Routes = [
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
   },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  {
+    path: 'qrread',
+    loadChildren: './qrreader/qrreader.module#QrreaderPageModule'
+  }
 ];
 @NgModule({
   imports: [
