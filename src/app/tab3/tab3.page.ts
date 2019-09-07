@@ -1,13 +1,9 @@
-import { Component } from "@angular/core";
-import { Crop } from "@ionic-native/crop/ngx";
+import { Component, OnInit } from "@angular/core";
 import { ImagePicker } from "@ionic-native/image-picker/ngx";
-
 import {
-  FileTransfer,
-  FileUploadOptions,
-  FileTransferObject
-} from "@ionic-native/file-transfer/ngx";
-import { PhotoService } from "../services/photo.service";
+  ImageResizer,
+  ImageResizerOptions
+} from "@ionic-native/image-resizer/ngx";
 
 @Component({
   selector: "app-tab3",
@@ -18,7 +14,10 @@ export class Tab3Page {
   imageResponse: any;
   options: any;
 
-  constructor(private imagePicker: ImagePicker) {}
+  constructor(
+    private imagePicker: ImagePicker,
+    private imageResizer: ImageResizer
+  ) {}
 
   getImages() {
     this.options = {
@@ -48,7 +47,8 @@ export class Tab3Page {
       results => {
         console.log(results);
         for (var i = 0; i < results.length; i++) {
-          this.imageResponse.push("data:image/jpeg;base64," + results[i]);
+          let uri = "data:image/jpeg;base64," + results[i];
+          this.imageResponse.push(uri);
         }
       },
       err => {
@@ -56,5 +56,4 @@ export class Tab3Page {
       }
     );
   }
-
 }
