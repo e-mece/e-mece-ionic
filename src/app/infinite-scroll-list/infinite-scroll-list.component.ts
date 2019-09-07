@@ -1,28 +1,17 @@
-import { IonicModule, IonInfiniteScroll} from "@ionic/angular";
-import { RouterModule } from "@angular/router";
-import { NgModule, Component, ViewChild, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Tab1Page } from "./tab1.page";
-import { SlideComponent } from "../slide/slide.component";
+import { Component, ViewChild } from "@angular/core";
+import { IonInfiniteScroll } from "@ionic/angular";
 
-@NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild([{ path: "", component: Tab1Page }])
-  ],
-  declarations: [Tab1Page, SlideComponent]
+@Component({
+  selector: "app-infinite-scroll-list",
+  templateUrl: "./infinite-scroll-list.component.html",
+  styleUrls: ["./infinite-scroll-list.component.scss"]
 })
-export class Tab1PageModule implements OnInit {
+export class InfiniteScrollListComponent {
   @ViewChild(IonInfiniteScroll, { static: false })
   infiniteScroll: IonInfiniteScroll;
 
   dataList: any;
-  constructor() {}
-
-  ngOnInit() {
+  constructor() {
     this.dataList = [];
 
     for (let i = 0; i < 25; i++) {
