@@ -16,9 +16,9 @@ export class Tab3Page {
   fileUrl: any = null;
   respData: any;
 
-  constructor() // private imagePicker: ImagePicker,
-  // private crop: Crop,
-  // private transfer: FileTransfer
+  constructor(  private imagePicker: ImagePicker,
+    private crop: Crop,
+    private transfer: FileTransfer) 
   {}
 
   // For image upload

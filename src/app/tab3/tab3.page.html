@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-card>
+  <ion-card>
     <img *ngIf="!fileUrl" src="assets/no-image.jpeg" />
     <img *ngIf="fileUrl" src="{{ fileUrl }}" />
     <ion-card-content>
@@ -15,7 +15,7 @@
         <ion-icon slot="icon-only" name="camera"></ion-icon>
       </ion-button>
     </ion-card-content>
-  </ion-card> -->
+  </ion-card>
 
   <ion-item>
     <ion-label position="floating" required="true">Etkinlik İsmi</ion-label>
@@ -35,7 +35,7 @@
     <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="long-input">
     <ion-label position="floating" required="true">Adres</ion-label>
     <ion-textarea></ion-textarea>
   </ion-item>
@@ -45,7 +45,7 @@
     <ion-input></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="long-input">
     <ion-label position="floating" required="true">Açıklama</ion-label>
     <ion-textarea></ion-textarea>
   </ion-item>
