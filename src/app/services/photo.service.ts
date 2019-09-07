@@ -9,7 +9,7 @@ export class PhotoService {
 
   currentImage: any;
 
-  constructor(private camera: Camera) { }
+  constructor(private camera: Camera) {}
 
   takePicture() {
     const options: CameraOptions = {
@@ -19,12 +19,15 @@ export class PhotoService {
       mediaType: this.camera.MediaType.PICTURE
     };
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.currentImage = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      // Handle error
-      console.log("Camera issue:" + err);
-    });
+    this.camera.getPicture(options).then(
+      imageData => {
+        this.currentImage = 'data:image/jpeg;base64,' + imageData;
+      },
+      err => {
+        // Handle error
+        console.log('Camera issue:' + err);
+      }
+    );
   }
 }
 

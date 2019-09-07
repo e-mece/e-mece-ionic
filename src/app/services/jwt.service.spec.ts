@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { PhotoService } from './photo.service';
+import { JwtService } from './jwt.service';
 
-describe('PhotoService', () => {
+describe('JwtService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: PhotoService = TestBed.get(PhotoService);
+    const service: JwtService = TestBed.get(JwtService);
     expect(service).toBeTruthy();
   });
 });
