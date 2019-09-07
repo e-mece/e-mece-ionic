@@ -1,5 +1,6 @@
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { EventDetailPage } from '../event-detail/event-detail.page';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomePage implements OnInit {
 
   dataList: any;
   dataArray: any;
-  constructor() {}
+  constructor(public modalController: ModalController) {}
 
   slideOpts = {
     initialSlide: 0,
@@ -113,6 +114,13 @@ export class HomePage implements OnInit {
         label: '3'
       }
     ];
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: EventDetailPage
+    });
+    return await modal.present();
   }
 
   loadData(event) {

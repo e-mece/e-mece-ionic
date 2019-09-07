@@ -8,6 +8,7 @@ const routes: Routes = [
   },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'event-detail', loadChildren: './event-detail/event-detail.module#EventDetailPageModule' },
 ];
 @NgModule({
   imports: [

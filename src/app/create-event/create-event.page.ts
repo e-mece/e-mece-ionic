@@ -40,15 +40,28 @@ export class CreateEventPage {
       // available options are
       // window.imagePicker.OutputType.FILE_URI (0) or
       // window.imagePicker.OutputType.BASE64_STRING (1)
-      outputType: 1
+      outputType: 0
     };
     this.imageResponse = [];
     this.imagePicker.getPictures(this.options).then(
       results => {
-        console.log(results);
         for (var i = 0; i < results.length; i++) {
-          let uri = 'data:image/jpeg;base64,' + results[i];
-          this.imageResponse.push(uri);
+          //const u = 'data:image/jpeg;base64,' + results[i];
+
+          const u = results[i];
+          console.log(u);
+          this.imageResponse.push(u);
+          let options = {
+            uri: u,
+            folderName: 'Protonet',
+            quality: 90,
+            width: 10,
+            height: 10
+          } as ImageResizerOptions;
+          this.imageResizer
+            .resize(options)
+            .then((filePath: string) => console.log('FilePath', filePath))
+            .catch(e => console.log(e));
         }
       },
       err => {
