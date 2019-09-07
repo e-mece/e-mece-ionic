@@ -32,9 +32,11 @@ const routes: Routes = [
           import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
-        path: 'tab5',
+        path: 'leaderboard',
         loadChildren: () =>
-          import('../tab5/tab5.module').then(m => m.Tab5PageModule)
+          import('../leaderboard/leaderboard.module').then(
+            m => m.LeaderboardPagePageModule
+          )
       },
       {
         path: '',
