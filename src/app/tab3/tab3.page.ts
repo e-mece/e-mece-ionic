@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Crop } from "@ionic-native/crop/ngx";
 import { ImagePicker } from "@ionic-native/image-picker/ngx";
+
 import {
   FileTransfer,
   FileUploadOptions,
@@ -56,33 +57,4 @@ export class Tab3Page {
     );
   }
 
-  // // For image upload
-  // cropUpload() {
-  //   this.imagePicker.getPictures({ maximumImagesCount: 1, outputType: 0 }).then(
-  //     results => {
-  //       for (let i = 0; i < results.length; i++) {
-  //         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-  //           console.log('file system open: ' + fs.name);
-  //           fs.root.getFile(results[i], { create: true, exclusive: false }, function (fileEntry) {
-  //               fileEntry.file((file) => {
-  //                   var reader = new FileReader();
-  //                   reader.onloadend = () => {
-  //                       // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
-  //                       var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
-  //                       var oReq = new XMLHttpRequest();
-  //                       oReq.open("POST", "http://mysweeturl.com/upload_handler", true);
-  //                       oReq.onload = (oEvent) => {
-  //                           // all done!
-  //                       };
-  //                       // Pass the blob in to XHR's send method
-  //                       oReq.send(blob);
-  //                   };
-  //                   // Read the file as an ArrayBuffer
-  //                   reader.readAsArrayBuffer(file);
-  //               }, (err) => { console.error('error getting fileentry file!' + err); });
-  //           }, (err) => { console.error('error getting file! ' + err); });
-  //       },  (err) => { console.error('error getting persistent fs! ' + err); });
-  //           },
-  //           error => console.error("Error cropping image", error)
-  //         );
 }
