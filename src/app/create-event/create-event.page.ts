@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { ImagePicker } from "@ionic-native/image-picker/ngx";
+import { Component, OnInit } from '@angular/core';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import {
   ImageResizer,
   ImageResizerOptions
-} from "@ionic-native/image-resizer/ngx";
+} from '@ionic-native/image-resizer/ngx';
 
 @Component({
-  selector: "app-tab3",
-  templateUrl: "tab3.page.html",
-  styleUrls: ["tab3.page.scss"]
+  selector: 'app-create-event',
+  templateUrl: 'create-event.page.html',
+  styleUrls: ['create-event.page.scss']
 })
-export class Tab3Page {
+export class CreateEventPage {
   imageResponse: any;
   options: any;
 
@@ -47,7 +47,7 @@ export class Tab3Page {
       results => {
         console.log(results);
         for (var i = 0; i < results.length; i++) {
-          let uri = "data:image/jpeg;base64," + results[i];
+          let uri = 'data:image/jpeg;base64,' + results[i];
           this.imageResponse.push(uri);
         }
       },
