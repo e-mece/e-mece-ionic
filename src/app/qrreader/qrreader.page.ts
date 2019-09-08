@@ -42,4 +42,8 @@ export class QrreaderPage implements OnInit {
       })
       .catch((e: any) => console.log('Error is', e));
   }
+
+  stop() {
+    this.router.navigate(['/tabs/profile']);
+  }
 }
