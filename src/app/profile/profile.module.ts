@@ -7,6 +7,10 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProfilePage } from './profile.page';
 import { QRCodeModule } from 'angularx-qrcode';
+import { CreatedEventsPageModule } from '../created-events/created-events.module';
+import { RegisteredEventsPageModule } from '../registered-events/registered-events.module';
+import { CreatedEventsPage } from '../created-events/created-events.page';
+import { RegisteredEventsPage } from '../registered-events/registered-events.page';
 
 const routes: Routes = [
   {
@@ -21,9 +25,11 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    CreatedEventsPageModule,
+    RegisteredEventsPageModule,
     QRCodeModule
   ],
   declarations: [ProfilePage],
-  entryComponents: []
+  entryComponents: [CreatedEventsPage, RegisteredEventsPage]
 })
 export class ProfilePageModule {}
