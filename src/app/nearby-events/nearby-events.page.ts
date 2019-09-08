@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {
   GoogleMaps,
   GoogleMap,
@@ -19,7 +20,7 @@ import {
 })
 export class NearbyEventsPage implements AfterViewInit {
   map: GoogleMap;
-  constructor(public platform: Platform) {}
+  constructor(public platform: Platform, private geolocation: Geolocation) {}
 
   ngAfterViewInit() {
     console.log(this.platform);
@@ -40,12 +41,34 @@ export class NearbyEventsPage implements AfterViewInit {
     let map = GoogleMaps.create('map');
 
     map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-      let coordinates: LatLng = new LatLng(36.7783, 119.4179);
+      var mylat: number;
+      var mylong: number;
+      this.geolocation
+        .getCurrentPosition()
+        .then(resp => {
+          mylat = resp.coords.latitude;
+          mylong = resp.coords.longitude;
+        })
+        .catch(error => {
+          console.log('Error getting location', error);
+        });
+
+      let coordinates: LatLng = new LatLng(mylat, mylong);
 
       let position = {
         center: coordinates,
         zoom: 14
       };
+
+      let mymarker: Marker = this.map.addMarkerSync({
+        title: 'Ionic',
+        icon: 'red',
+        animation: 'DROP',
+        position: {
+          lat: mylat,
+          lng: mylong
+        }
+      });
 
       map.animateCamera(position);
       let markerOptions: MarkerOptions;
