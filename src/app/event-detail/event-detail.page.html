@@ -7,43 +7,66 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="eventM">
   <ion-avatar class="center" style="--border-radius:100">
-    <img
-      src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-    />
+    <img [src]="eventM.image" />
   </ion-avatar>
 
   <ion-list>
     <ion-header translucent>
       <ion-toolbar>
         <div class="ion-text-uppercase ion-text-center">
-          <ion-title color="primary">Etkinlik Adı</ion-title>
+          <ion-title color="primary">{{ eventM.title }}</ion-title>
         </div>
       </ion-toolbar>
     </ion-header>
 
     <ion-item>
       <ion-label>Şehir</ion-label>
+      <ion-label slot="end" color="primary" class="ion-text-end">{{
+        eventM.city
+      }}</ion-label>
     </ion-item>
 
     <ion-item>
       <ion-label>Başlangıç Günü ve Saati: </ion-label>
+      <ion-label slot="end" color="primary" class="ion-text-end">{{
+        eventM.startDate | date: 'medium'
+      }}</ion-label>
     </ion-item>
 
     <ion-item>
       <ion-label>Bitiş Günü ve Saati: </ion-label>
+      <ion-label slot="end" color="primary" class="ion-text-end">{{
+        eventM.endDate | date: 'medium'
+      }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label
         >Gönüllülük Puanı
         <ion-icon slot="end" name="ribbon"></ion-icon>
       </ion-label>
-      <ion-note slot="end" color="primary" style="font-size:100%">99</ion-note>
+      <ion-label slot="end" color="primary" class="ion-text-end">{{
+        eventM.point
+      }}</ion-label>
     </ion-item>
-  </ion-list>
 
-  <ion-content class="ion-padding">
-    <ion-button expand="block">Etkinliğe Katıl</ion-button>
-  </ion-content>
+    <ion-item *ngIf="creator">
+      <ion-label>Oluşturan Lider </ion-label>
+      <ion-label slot="end" color="primary" class="ion-text-end"
+        >{{ creator.firstName }} {{ creator.middleName }}
+        {{ creator.lastName }} - >{{ creator.email }} }</ion-label
+      >
+    </ion-item>
+
+    <ion-row *ngIf="participants" class="ion-justify-content-between">
+      <ion-col size="3" *ngFor="let participant of participants">
+        <ion-img [src]="participant.image" class="userImg"></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-button class="ion-padding" expand="block" (click)="registerToEvent()"
+      >Etkinliğe Katıl</ion-button
+    >
+  </ion-list>
 </ion-content>
