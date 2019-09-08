@@ -16,34 +16,24 @@ import {
   User
 } from '../../contract';
 import { JwtService } from './jwt.service';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser$: Observable<User>;
-
   constructor(
     private readonly http: HttpClient,
-    private readonly jwtService: JwtService
-  ) {
-    this.currentUserSubject = new BehaviorSubject<User>(null);
-    this.currentUser$ = this.currentUserSubject
-      .asObservable()
-      .pipe(distinctUntilChanged());
-  }
+    private readonly jwtService: JwtService,
+    private readonly stateService: StateService
+  ) {}
 
   signOut(): void {
     this.purgeAuth();
   }
 
   hasCurrentUser(): boolean {
-    return this.currentUserSubject.value !== null;
-  }
-
-  getCurrentUser(): User {
-    return this.currentUserSubject.value;
+    return this.stateService.getCurrentUser() !== null;
   }
 
   // Verify JWT in localstorage with server & load user's info.
@@ -71,7 +61,9 @@ export class AuthService {
     // Remove JWT from localstorage
     await this.jwtService.destroyToken();
     // Set current user to null
-    this.currentUserSubject.next(null);
+    this.stateService.setCurrentUser(null);
+    this.stateService.setUserCreatedEvents([]);
+    this.stateService.setUserRegisteredEvents([]);
   }
 
   async updateCurrentUserUsingToken(): Promise<boolean> {
@@ -83,8 +75,17 @@ export class AuthService {
         })
         .toPromise();
 
+      if (response.body.createdEvents) {
+        this.stateService.setUserCreatedEvents(response.body.createdEvents);
+      }
+      if (response.body.registeredEvents) {
+        this.stateService.setUserRegisteredEvents(
+          response.body.registeredEvents
+        );
+      }
+
       if (response.body.user) {
-        this.currentUserSubject.next(response.body.user);
+        this.stateService.setCurrentUser(response.body.user);
         return true;
       } else {
         this.purgeAuth();

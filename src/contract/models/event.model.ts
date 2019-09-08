@@ -14,4 +14,6 @@ export class Event {
   point?: number;
   created?: Date;
   modified?: Date;
+  participationApproved?: boolean;
+  participantCount?: number;
 }
