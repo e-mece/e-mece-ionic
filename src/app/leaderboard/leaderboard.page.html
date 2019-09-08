@@ -5,11 +5,11 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-item *ngFor="let item of dataList">
+  <ion-item *ngFor="let item of dataList; let i = index">
     <ion-thumbnail slot="start">
       <img src="{{ item.image }}" />
     </ion-thumbnail>
-    <ion-icon slot="end" name="ribbon" color="{{ item.color }}"></ion-icon>
-    <ion-label>{{ item.name }} {{ item.surname }}</ion-label>
+    <ion-icon slot="end" name="ribbon" color="{{ itemColor(i) }}"></ion-icon>
+    <ion-label>{{ item.firstName }} {{ item.lastName }}</ion-label>
   </ion-item>
 </ion-content>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../contract';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -6,20 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./leaderboard.page.scss']
 })
 export class LeaderboardPagePage implements OnInit {
-  dataList: any;
-  constructor() {
-    this.dataList = [];
+  dataList: User[];
 
-    for (let i = 0; i < 25; i++) {
-      this.dataList.push({
-        image:
-          'http://www.guliver.mk/wp-content/themes/sw_chamy/assets/img/placeholder/thumbnail.png',
-        name: 'Name ' + this.dataList.length,
-        surname: 'Surname ' + this.dataList.length,
-        color: this.itemColor(i)
-      });
-    }
-  }
+  constructor(private readonly userService: UserService) {}
 
   itemColor(i: number) {
     if (i === 0) {
@@ -32,5 +23,10 @@ export class LeaderboardPagePage implements OnInit {
       return '';
     }
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataList = [];
+    this.userService
+      .getGlobalLeaderboard()
+      .then(response => this.dataList.push(...response.users));
+  }
 }

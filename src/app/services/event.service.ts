@@ -16,7 +16,7 @@ import {
   GetEventResponse,
   GetEventsResponse
 } from '../../contract';
-import { of, Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -224,6 +224,7 @@ export class EventService {
     return this.http
       .get<GetEventsResponse>(`${environment.apiUrl}event`, {
         observe: 'response',
+        headers: await this.setHeaders(),
         params
       })
       .pipe(
