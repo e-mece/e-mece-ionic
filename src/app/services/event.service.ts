@@ -83,6 +83,39 @@ export class EventService {
       .toPromise();
   }
 
+  async getClosestEvents(
+    lat: number,
+    long: number
+  ): Promise<GetEventsResponse> {
+    return this.http
+      .get<GetEventsResponse>(`${environment.apiUrl}event/geo/${lat}/${long}`, {
+        observe: 'response',
+        headers: await this.setHeaders()
+      })
+      .pipe(
+        map((response: HttpResponse<GetEventsResponse>) => response.body),
+        catchError(error => {
+          if (error instanceof HttpErrorResponse) {
+            if (error.error instanceof ErrorEvent) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.error('An error occurred:', error.error.message);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong,
+              console.error(
+                `Backend returned code ${error.status}, ` +
+                  `body was: ${JSON.stringify(error.error)}`
+              );
+            }
+            return of(null);
+          } else {
+            throw error;
+          }
+        })
+      )
+      .toPromise();
+  }
+
   async approveEventParticipation(
     eventId: number,
     userId: number

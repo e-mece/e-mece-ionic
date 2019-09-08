@@ -12,6 +12,9 @@ import {
   Marker,
   Environment
 } from '@ionic-native/google-maps';
+import { EventService } from '../services/event.service';
+import { Event } from 'src/contract';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nearby-events',
@@ -20,7 +23,12 @@ import {
 })
 export class NearbyEventsPage implements AfterViewInit {
   map: GoogleMap;
-  constructor(public platform: Platform, private geolocation: Geolocation) {}
+  events: Event[];
+  constructor(
+    public platform: Platform,
+    private geolocation: Geolocation,
+    private eventService: EventService
+  ) {}
 
   ngAfterViewInit() {
     console.log(this.platform);
@@ -30,38 +38,34 @@ export class NearbyEventsPage implements AfterViewInit {
   }
 
   loadMap() {
-    var locations: [string, number, number, number][] = [
-      ['Bondi Beach', -33.890542, 151.274856, 4],
-      ['Coogee Beach', -33.923036, 151.259052, 5],
-      ['Cronulla Beach', -34.028249, 151.157507, 3],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-      ['Maroubra Beach', -33.950198, 151.259302, 1]
-    ];
+    this.map = GoogleMaps.create('map');
 
-    let map = GoogleMaps.create('map');
-
-    map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-      var mylat: number;
-      var mylong: number;
+    this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
+      let mylat: number;
+      let mylong: number;
       this.geolocation
         .getCurrentPosition()
         .then(resp => {
           mylat = resp.coords.latitude;
           mylong = resp.coords.longitude;
+          this.eventService.getClosestEvents(mylat, mylong).then(response => {
+            this.events = response.events;
+            this.events.forEach(event => this.addMarkerForEvent(event));
+          });
         })
         .catch(error => {
           console.log('Error getting location', error);
         });
 
-      let coordinates: LatLng = new LatLng(mylat, mylong);
+      const coordinates: LatLng = new LatLng(mylat, mylong);
 
-      let position = {
+      const position = {
         center: coordinates,
         zoom: 14
       };
 
-      let mymarker: Marker = this.map.addMarkerSync({
-        title: 'Ionic',
+      const mymarker: Marker = this.map.addMarkerSync({
+        title: 'Konumum',
         icon: 'red',
         animation: 'DROP',
         position: {
@@ -69,21 +73,16 @@ export class NearbyEventsPage implements AfterViewInit {
           lng: mylong
         }
       });
-
-      map.animateCamera(position);
-      let markerOptions: MarkerOptions;
-      let marker;
-      for (let i = 0; i < locations.length; i++) {
-        markerOptions = {
-          position: new LatLng(locations[i][1], locations[i][2]),
-          icon: 'blue',
-          title: locations[i][0]
-        };
-        marker = map.addMarker(markerOptions).then((marker: Marker) => {
-          marker.showInfoWindow();
-        });
-      }
     });
+  }
+
+  addMarkerForEvent(event: Event): void {
+    const markerOptions = {
+      position: new LatLng(event.latitude, event.longitude),
+      icon: 'blue',
+      title: event.title
+    };
+    this.map.addMarker(markerOptions).then(marker => marker.showInfoWindow());
   }
 
   // loadMap() {

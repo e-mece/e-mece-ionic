@@ -20,6 +20,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 import localeTr from '@angular/common/locales/tr';
 import { registerLocaleData } from '@angular/common';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 registerLocaleData(localeTr);
 
@@ -43,6 +44,7 @@ registerLocaleData(localeTr);
     AuthService,
     QRScanner,
     GoogleMaps,
+    Geolocation,
     {
       provide: APP_INITIALIZER,
       useFactory: init,
