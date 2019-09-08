@@ -3,7 +3,7 @@
     <name>e-mece</name>
     <description>Genç Hackathon 2019 Üç Martı Takımı Projesi.</description>
     <author email="ahmetuysal1398@gmail.com" href="https://github.com/ahmetuysal">Ahmet Uysal</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -100,4 +100,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://localhost:8100" sessionid="bea2da87" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDngCcusaDd1QBjmkJ43Ew2hUe49GUJSA8" />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyDngCcusaDd1QBjmkJ43Ew2hUe49GUJSA8" />
 </widget>

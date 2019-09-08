@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'qrread',
     loadChildren: './qrreader/qrreader.module#QrreaderPageModule'
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: '', redirectTo: 'tabs', pathMatch: 'full' }
 ];
 @NgModule({
   imports: [

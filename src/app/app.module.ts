@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { init } from './init';
 import { IonicStorageModule } from '@ionic/storage';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
     ImageResizer,
     AuthService,
     QRScanner,
+    GoogleMaps,
     {
       provide: APP_INITIALIZER,
       useFactory: init,
