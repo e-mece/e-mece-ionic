@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -18,6 +18,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps';
 
+import localeTr from '@angular/common/locales/tr';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeTr);
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,6 +37,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LOCALE_ID, useValue: 'tr-TR' },
     ImagePicker,
     ImageResizer,
     AuthService,
