@@ -29,27 +29,37 @@ export class NearbyEventsPage implements AfterViewInit {
   }
 
   loadMap() {
+    var locations: [string, number, number, number][] = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+
     let map = GoogleMaps.create('map');
 
     map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
       let coordinates: LatLng = new LatLng(36.7783, 119.4179);
 
       let position = {
-        target: coordinates,
+        center: coordinates,
         zoom: 14
       };
 
       map.animateCamera(position);
-
-      let markerOptions: MarkerOptions = {
-        position: coordinates,
-        icon: 'assets/images/marker.png',
-        title: 'Hello California'
-      };
-
-      const marker = map.addMarker(markerOptions).then((marker: Marker) => {
-        marker.showInfoWindow();
-      });
+      let markerOptions: MarkerOptions;
+      let marker;
+      for (let i = 0; i < locations.length; i++) {
+        markerOptions = {
+          position: new LatLng(locations[i][1], locations[i][2]),
+          icon: 'blue',
+          title: locations[i][0]
+        };
+        marker = map.addMarker(markerOptions).then((marker: Marker) => {
+          marker.showInfoWindow();
+        });
+      }
     });
   }
 
