@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qrreader',
@@ -7,7 +8,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
   styleUrls: ['./qrreader.page.scss']
 })
 export class QrreaderPage implements OnInit {
-  constructor(private qrScanner: QRScanner) {}
+  constructor(private qrScanner: QRScanner, public router: Router) {}
 
   ngOnInit() {
     console.log('init');
@@ -17,14 +18,19 @@ export class QrreaderPage implements OnInit {
         if (status.authorized) {
           // camera permission was granted
           console.log(status);
+          const element = document.getElementById('main');
+
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
             console.log('Scanned something', text);
 
             this.qrScanner.hide(); // hide camera preview
+            this.qrScanner.destroy(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
+            const element = document.getElementById('main');
+            this.router.navigate(['/tabs/profile']);
           });
-         
+
           this.qrScanner.show();
           this.qrScanner.resumePreview();
         } else if (status.denied) {
