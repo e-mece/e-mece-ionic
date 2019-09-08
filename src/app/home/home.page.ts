@@ -1,6 +1,8 @@
 import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { EventDetailPage } from '../event-detail/event-detail.page';
+import { EventService } from '../services/event.service';
+import { Event } from '../../contract';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +13,12 @@ export class HomePage implements OnInit {
   @ViewChild(IonInfiniteScroll, { static: false })
   infiniteScroll: IonInfiniteScroll;
 
-  dataList: any;
+  dataList: Event[];
   dataArray: any;
-  constructor(private readonly modalController: ModalController) {}
+  constructor(
+    private readonly modalController: ModalController,
+    private readonly eventService: EventService
+  ) {}
 
   slideOpts = {
     initialSlide: 0,
@@ -84,18 +89,20 @@ export class HomePage implements OnInit {
     }
   };
 
+  currentPage = 0;
+  pageSize = 20;
+  totalItem = 20;
+
   ngOnInit(): void {
     this.dataList = [];
 
-    for (let i = 0; i < 25; i++) {
-      this.dataList.push({
-        image:
-          'http://www.guliver.mk/wp-content/themes/sw_chamy/assets/img/placeholder/thumbnail.png',
-        name: 'Event Name ' + this.dataList.length,
-        address: 'Event Address ' + this.dataList.length,
-        time: 'Event Time ' + this.dataList.length
+    this.eventService
+      .getEventsWithPagination(this.currentPage, this.pageSize)
+      .then(response => {
+        this.dataList.push(...response.events);
+        this.currentPage++;
+        this.totalItem = response.total;
       });
-    }
 
     this.dataArray = [
       {
@@ -127,20 +134,18 @@ export class HomePage implements OnInit {
   loadData(event) {
     setTimeout(() => {
       console.log('Done');
-      for (let i = 0; i < 25; i++) {
-        this.dataList.push({
-          image:
-            'http://www.guliver.mk/wp-content/themes/sw_chamy/assets/img/placeholder/thumbnail.png',
-          name: 'Event Name ' + this.dataList.length,
-          address: 'Event Address ' + this.dataList.length,
-          time: 'Event Time ' + this.dataList.length
+      this.eventService
+        .getEventsWithPagination(this.currentPage, this.pageSize)
+        .then(response => {
+          this.dataList.push(...response.events);
+          this.currentPage++;
+          this.totalItem = response.total;
         });
-      }
       event.target.complete();
 
       // App logic to determine if all data is loaded
       // and disable the infinite scroll
-      if (this.dataList.length === 1000) {
+      if (this.dataList.length === this.totalItem) {
         event.target.disabled = true;
       }
     }, 500);
