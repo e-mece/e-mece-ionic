@@ -17,4 +17,5 @@ export class User {
   city?: string;
   phone?: string;
   type?: UserType;
+  point?: number;
 }

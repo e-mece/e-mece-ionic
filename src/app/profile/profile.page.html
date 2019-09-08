@@ -13,7 +13,9 @@
     <ion-header translucent>
       <ion-toolbar>
         <div class="ion-text-uppercase ion-text-center">
-          <ion-title color="primary">Ad Soyad</ion-title>
+          <ion-title color="primary">{{
+            (authService.currentUser$ | async).firstName
+          }}</ion-title>
         </div>
       </ion-toolbar>
     </ion-header>

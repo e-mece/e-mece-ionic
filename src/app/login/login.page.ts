@@ -22,6 +22,7 @@ export class LoginPage implements OnInit {
     private readonly router: Router,
     private readonly formBuilder: FormBuilder
   ) {
+    console.log(this.authService.getCurrentUser());
     if (this.authService.hasCurrentUser()) {
       this.router.navigate(['/tabs']);
     }
