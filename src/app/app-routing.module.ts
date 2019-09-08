@@ -11,10 +11,6 @@ const routes: Routes = [
     loadChildren: './register/register.module#RegisterPageModule'
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  {
-    path: 'qrread',
-    loadChildren: './qrreader/qrreader.module#QrreaderPageModule'
-  },
   { path: '', redirectTo: 'tabs', pathMatch: 'full' }
 ];
 @NgModule({
