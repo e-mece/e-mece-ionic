@@ -7,7 +7,10 @@ import { QrreaderPage } from '../qrreader/qrreader.page';
   styleUrls: ['./profile.page.scss']
 })
 export class ProfilePage implements OnInit {
-  constructor(private readonly modalController: ModalController) {}
+  public myQRString;
+  constructor(private readonly modalController: ModalController) {
+    this.myQRString = 'www.google.com';
+  }
 
   async presentModal(item: any) {
     const modal = await this.modalController.create({
@@ -17,7 +20,5 @@ export class ProfilePage implements OnInit {
     return await modal.present();
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 }
