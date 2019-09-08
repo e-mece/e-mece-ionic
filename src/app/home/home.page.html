@@ -27,12 +27,14 @@
     <ion-list>
       <ion-item *ngFor="let item of dataList" (click)="presentModal(item)">
         <ion-thumbnail slot="start">
-          <img src="{{ item.image }}" />
+          <img
+            src="http://www.teknolojixhaber.com/wp-content/uploads/2019/07/hackathon-1024x575.png"
+          />
         </ion-thumbnail>
         <ion-label>
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.title }}</h3>
           <p>{{ item.address }}</p>
-          <p>{{ item.time }}</p>
+          <p>0/{{ item.quota }}</p>
         </ion-label>
       </ion-item>
     </ion-list>

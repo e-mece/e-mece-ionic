@@ -112,7 +112,7 @@ export class HomePage implements OnInit {
       },
       {
         address:
-          'https://cdnuploads.aa.com.tr/uploads/Contents/2019/08/02/thumbs_b_c_540098f6d4a155b7737f85c8722cb588.jpg',
+          'http://www.teknolojixhaber.com/wp-content/uploads/2019/07/hackathon-1024x575.png',
         label: '2'
       },
       {
