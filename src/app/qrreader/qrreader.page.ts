@@ -24,6 +24,9 @@ export class QrreaderPage implements OnInit {
             this.qrScanner.hide(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
           });
+         
+          this.qrScanner.show();
+          this.qrScanner.resumePreview();
         } else if (status.denied) {
           // camera permission was permanently denied
           this.qrScanner.openSettings();
