@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>registered-events</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" (click)="dismiss()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kaydolduğum Etkinlikler</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf="stateService.userRegisteredvents$ | async as events">
+  <ion-list>
+    <ion-item *ngFor="let item of events" (click)="presentModal(item)">
+      <ion-thumbnail slot="start">
+        <img src="{{ item.image }}" />
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.address }}</p>
+        <p>{{ item.time }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
